@@ -179,10 +179,16 @@
         /* About */
         .about {
             padding: 8rem 3rem;
+                display: flex;
+                gap: 2rem;
+                align-items: center;
             background: var(--beige);
         }
 
         .about-content {
+                display: flex;
+                gap: 2rem;
+                align-items: center;
             max-width: 800px;
             margin: 0 auto;
         }
@@ -199,6 +205,16 @@
             line-height: 1.8;
             margin-bottom: 1.5rem;
             color: var(--black);
+        }
+
+        .about-image {
+                flex: 0 0 auto;
+                width: 350px;
+                height: 350px;
+                border-radius: 15px;
+                background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==');
+                background-size: cover;
+                background-position: center;
         }
 
         /* Contact & Inquiry */
@@ -480,6 +496,7 @@
             <h2>ABOUT</h2>
             <p>Brookham Construction brings quality craftsmanship and attention to detail to every project. Based in Salt Lake City, we specialize in residential remodeling with a focus on creating spaces that enhance how you live.</p>
             <p>Our team combines technical expertise with clear communication and on-time delivery. Licensed and insured, we work closely with clients throughout the entire process, ensuring your vision becomes reality within budget and on schedule.</p>
+                        <div class="about-image"></div>
         </div>
     </section>
 
