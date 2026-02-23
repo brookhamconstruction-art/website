@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services — Brookham Construction</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #1a1a1a;
+            --white: #ffffff;
+            --beige: #e8dfd0;
+            --warm-gray: #666;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            color: var(--black);
+            background: var(--white);
+            line-height: 1.7;
+        }
+
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 2rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            background: var(--beige);
+            transition: padding 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        nav.scrolled {
+            padding: 1rem 3rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .logo {
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-decoration: none;
+            color: var(--black);
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--black);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            opacity: 0.5;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 5rem 3rem 3rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .page-header h1 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            margin-bottom: 1.25rem;
+        }
+
+        .page-header p {
+            font-size: 1.15rem;
+            max-width: 520px;
+            color: var(--warm-gray);
+            line-height: 1.75;
+        }
+
+        /* Services Accordion */
+        .services-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 3rem 6rem;
+        }
+
+        .service-item {
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .service-item:last-child {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .service-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.75rem 0;
+            cursor: pointer;
+            user-select: none;
+            gap: 2rem;
+        }
+
+        .service-header-left {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            flex: 1;
+        }
+
+        .service-number {
+            font-size: 0.78rem;
+            color: var(--warm-gray);
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            min-width: 24px;
+        }
+
+        .service-title {
+            font-size: 1.25rem;
+            font-weight: 500;
+            transition: opacity 0.25s ease;
+        }
+
+        .service-tag {
+            font-size: 0.78rem;
+            color: var(--warm-gray);
+            letter-spacing: 0.04em;
+            font-weight: 500;
+            padding: 0.3rem 0.75rem;
+            border: 1px solid rgba(0,0,0,0.15);
+            border-radius: 100px;
+            white-space: nowrap;
+            opacity: 0;
+            transform: translateX(-8px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .service-item.open .service-tag,
+        .service-header:hover .service-tag {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .service-icon {
+            width: 36px;
+            height: 36px;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .service-icon::before,
+        .service-icon::after {
+            content: '';
+            position: absolute;
+            background: var(--black);
+            transition: transform 0.35s ease, opacity 0.35s ease;
+        }
+
+        .service-icon::before {
+            width: 14px;
+            height: 1.5px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .service-icon::after {
+            width: 1.5px;
+            height: 14px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .service-item.open .service-icon::after {
+            transform: translate(-50%, -50%) rotate(90deg);
+            opacity: 0;
+        }
+
+        .service-body {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.4s ease;
+        }
+
+        .service-item.open .service-body {
+            grid-template-rows: 1fr;
+        }
+
+        .service-body-inner {
+            overflow: hidden;
+        }
+
+        .service-body-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            padding: 0 0 2.5rem 2.5rem;
+        }
+
+        .service-description {
+            font-size: 1rem;
+            color: var(--warm-gray);
+            line-height: 1.8;
+        }
+
+        .service-highlights {
+            list-style: none;
+        }
+
+        .service-highlights li {
+            font-size: 0.9rem;
+            padding: 0.6rem 0;
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--black);
+        }
+
+        .service-highlights li::before {
+            content: '';
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--black);
+            flex-shrink: 0;
+            opacity: 0.4;
+        }
+
+        .service-highlights li:last-child {
+            border-bottom: none;
+        }
+
+        /* CTA */
+        .cta-section {
+            background: var(--beige);
+            padding: 5rem 3rem;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 1.6rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            max-width: 480px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-section p {
+            color: var(--warm-gray);
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--black);
+            color: var(--white);
+            text-decoration: none;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.04em;
+            transition: opacity 0.25s ease;
+        }
+
+        .cta-btn:hover {
+            opacity: 0.75;
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem;
+            text-align: center;
+            border-top: 1px solid rgba(0, 0, 0, 0.08);
+            font-size: 0.85rem;
+            color: var(--warm-gray);
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem 1.25rem;
+            }
+
+            nav.scrolled {
+                padding: 0.75rem 1.25rem;
+            }
+
+            .logo {
+                font-size: 0.85rem;
+                letter-spacing: 0.04em;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .page-header {
+                padding: 3rem 1.25rem 2rem;
+            }
+
+            .page-header h1 {
+                margin-bottom: 0.75rem;
+            }
+
+            .page-header p {
+                font-size: 1rem;
+            }
+
+            .services-container {
+                padding: 0 1.25rem 4rem;
+            }
+
+            .service-header {
+                padding: 1.4rem 0;
+            }
+
+            .service-title {
+                font-size: 1.05rem;
+            }
+
+            .service-tag {
+                display: none;
+            }
+
+            .service-body-content {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                padding: 0 0 2rem 1.5rem;
+            }
+
+            .cta-section {
+                padding: 3.5rem 1.25rem;
+            }
+
+            .cta-section h2 {
+                font-size: 1.3rem;
+            }
+
+            footer {
+                padding: 2rem 1.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav id="mainNav">
+        <a href="index.html" class="logo">BROOKHAM CONSTRUCTION</a>
+        <ul class="nav-links">
+            <li><a href="index.html#projects">PROJECTS</a></li>
+            <li><a href="services.html" class="active">SERVICES</a></li>
+            <li><a href="index.html#about">ABOUT</a></li>
+            <li><a href="index.html#contact">CONTACT</a></li>
+        </ul>
+    </nav>
+
+    <div class="page-header">
+        <h1>SERVICES</h1>
+        <p>From single-room renovations to full home remodels, we bring craftsmanship and attention to detail to every project.</p>
+    </div>
+
+    <div class="services-container">
+
+        <div class="service-item" data-index="0">
+            <div class="service-header">
+                <div class="service-header-left">
+                    <span class="service-number">01</span>
+                    <span class="service-title">Bathroom Remodeling</span>
+                    <span class="service-tag">Most Requested</span>
+                </div>
+                <span class="service-icon"></span>
+            </div>
+            <div class="service-body">
+                <div class="service-body-inner">
+                    <div class="service-body-content">
+                        <p class="service-description">Complete bathroom transformations from functional updates to luxury retreats. We handle everything from layout planning to the final fixtures, ensuring a seamless and beautiful result.</p>
+                        <ul class="service-highlights">
+                            <li>Custom tile and stonework</li>
+                            <li>Vanity and fixture installation</li>
+                            <li>Walk-in shower conversions</li>
+                            <li>Heated flooring systems</li>
+                            <li>Full gut renovations</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="service-item" data-index="1">
+            <div class="service-header">
+                <div class="service-header-left">
+                    <span class="service-number">02</span>
+                    <span class="service-title">Kitchen Remodeling</span>
+                    <span class="service-tag">High Impact</span>
+                </div>
+                <span class="service-icon"></span>
+            </div>
+            <div class="service-body">
+                <div class="service-body-inner">
+                    <div class="service-body-content">
+                        <p class="service-description">Custom kitchen renovations that blend beauty with functionality. We work closely with you on layout, cabinetry, and finishes to create a kitchen that fits your lifestyle perfectly.</p>
+                        <ul class="service-highlights">
+                            <li>Custom cabinetry and millwork</li>
+                            <li>Countertop installation</li>
+                            <li>Appliance integration</li>
+                            <li>Kitchen island design</li>
+                            <li>Lighting and electrical updates</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="service-item" data-index="2">
+            <div class="service-header">
+                <div class="service-header-left">
+                    <span class="service-number">03</span>
+                    <span class="service-title">Full Home Remodels</span>
+                    <span class="service-tag">Comprehensive</span>
+                </div>
+                <span class="service-icon"></span>
+            </div>
+            <div class="service-body">
+                <div class="service-body-inner">
+                    <div class="service-body-content">
+                        <p class="service-description">Comprehensive renovations that transform your entire living space. We manage every trade and phase of the project, giving you a single point of contact from demo to completion.</p>
+                        <ul class="service-highlights">
+                            <li>Full project management</li>
+                            <li>Structural modifications</li>
+                            <li>Plumbing and electrical coordination</li>
+                            <li>Open-concept conversions</li>
+                            <li>Interior redesign and finishes</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="service-item" data-index="3">
+            <div class="service-header">
+                <div class="service-header-left">
+                    <span class="service-number">04</span>
+                    <span class="service-title">Deck Construction</span>
+                    <span class="service-tag">Outdoor Living</span>
+                </div>
+                <span class="service-icon"></span>
+            </div>
+            <div class="service-body">
+                <div class="service-body-inner">
+                    <div class="service-body-content">
+                        <p class="service-description">Custom deck design and construction for outdoor living. Whether you want a simple backyard platform or a multi-level entertainment space, we build it to last.</p>
+                        <ul class="service-highlights">
+                            <li>Composite and hardwood decking</li>
+                            <li>Pergolas and shade structures</li>
+                            <li>Built-in seating and planters</li>
+                            <li>Railing systems</li>
+                            <li>Outdoor lighting integration</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="service-item" data-index="4">
+            <div class="service-header">
+                <div class="service-header-left">
+                    <span class="service-number">05</span>
+                    <span class="service-title">Flooring Installation</span>
+                    <span class="service-tag">All Materials</span>
+                </div>
+                <span class="service-icon"></span>
+            </div>
+            <div class="service-body">
+                <div class="service-body-inner">
+                    <div class="service-body-content">
+                        <p class="service-description">Expert installation of hardwood, tile, and engineered flooring. We prepare surfaces properly, source quality materials, and deliver a flawless finish that ties the whole space together.</p>
+                        <ul class="service-highlights">
+                            <li>Solid and engineered hardwood</li>
+                            <li>Luxury vinyl plank (LVP)</li>
+                            <li>Porcelain and ceramic tile</li>
+                            <li>Subfloor repair and leveling</li>
+                            <li>Stair refinishing</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="service-item" data-index="5">
+            <div class="service-header">
+                <div class="service-header-left">
+                    <span class="service-number">06</span>
+                    <span class="service-title">Tile &amp; Stonework</span>
+                    <span class="service-tag">Detail Work</span>
+                </div>
+                <span class="service-icon"></span>
+            </div>
+            <div class="service-body">
+                <div class="service-body-inner">
+                    <div class="service-body-content">
+                        <p class="service-description">Professional tile installation with precision and attention to detail. From intricate mosaic patterns to large-format stone, we handle all tile and stonework with care and expertise.</p>
+                        <ul class="service-highlights">
+                            <li>Shower and tub surrounds</li>
+                            <li>Backsplashes and accent walls</li>
+                            <li>Natural stone installation</li>
+                            <li>Waterproofing and sealing</li>
+                            <li>Grout restoration and repair</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="service-item" data-index="6">
+            <div class="service-header">
+                <div class="service-header-left">
+                    <span class="service-number">07</span>
+                    <span class="service-title">Painting &amp; Finishing</span>
+                    <span class="service-tag">Interior &amp; Exterior</span>
+                </div>
+                <span class="service-icon"></span>
+            </div>
+            <div class="service-body">
+                <div class="service-body-inner">
+                    <div class="service-body-content">
+                        <p class="service-description">Interior and exterior painting with high-quality finishes. We prep surfaces thoroughly and use premium paints to ensure a lasting result that elevates the look of any space.</p>
+                        <ul class="service-highlights">
+                            <li>Interior painting and trim</li>
+                            <li>Exterior painting and staining</li>
+                            <li>Cabinet painting and refinishing</li>
+                            <li>Drywall patching and repair</li>
+                            <li>Specialty textures and finishes</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="service-item" data-index="7">
+            <div class="service-header">
+                <div class="service-header-left">
+                    <span class="service-number">08</span>
+                    <span class="service-title">Repairs &amp; Maintenance</span>
+                    <span class="service-tag">Quick Turnaround</span>
+                </div>
+                <span class="service-icon"></span>
+            </div>
+            <div class="service-body">
+                <div class="service-body-inner">
+                    <div class="service-body-content">
+                        <p class="service-description">Quick and reliable repair services for all aspects of your home. From minor fixes to larger maintenance projects, we respond promptly and work efficiently to keep your home in top shape.</p>
+                        <ul class="service-highlights">
+                            <li>Door and window repairs</li>
+                            <li>Drywall and plaster work</li>
+                            <li>Trim and molding replacement</li>
+                            <li>Caulking and weatherproofing</li>
+                            <li>General handyman services</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="cta-section">
+        <h2>Ready to start your project?</h2>
+        <p>Get in touch and we'll walk you through what's possible for your home.</p>
+        <a href="index.html#contact" class="cta-btn">GET IN TOUCH</a>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Brookham Construction. Licensed &amp; Insured in Utah.</p>
+    </footer>
+
+    <script>
+        // Sticky nav
+        const nav = document.getElementById('mainNav');
+        window.addEventListener('scroll', () => {
+            nav.classList.toggle('scrolled', window.scrollY > 20);
+        });
+
+        // Accordion
+        document.querySelectorAll('.service-item').forEach(item => {
+            const header = item.querySelector('.service-header');
+            header.addEventListener('click', () => {
+                const isOpen = item.classList.contains('open');
+                // Close all
+                document.querySelectorAll('.service-item.open').forEach(openItem => {
+                    openItem.classList.remove('open');
+                });
+                // Open clicked if it was closed
+                if (!isOpen) {
+                    item.classList.add('open');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
