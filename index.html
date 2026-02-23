@@ -201,74 +201,6 @@
             opacity: 0.9;
         }
 
-        /* Services */
-        /* Services */
-        .services {
-            padding: 6rem 3rem;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        .services h2 {
-            font-size: 0.9rem;
-            font-weight: 600;
-            letter-spacing: 0.15em;
-            margin-bottom: 2.5rem;
-        }
-
-        .service-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1px;
-            background: rgba(0,0,0,0.08);
-            border: 1px solid rgba(0,0,0,0.08);
-        }
-
-        .service-tile {
-            position: relative;
-            padding: 2rem 1.75rem;
-            background: #fff;
-            overflow: hidden;
-            cursor: default;
-            min-height: 130px;
-            display: flex;
-            align-items: flex-end;
-        }
-
-        .service-tile-name {
-            font-size: 1.05rem;
-            font-weight: 500;
-            line-height: 1.3;
-            position: relative;
-            z-index: 2;
-            transition: transform 0.3s ease, opacity 0.3s ease;
-        }
-
-        .service-tile-desc {
-            position: absolute;
-            inset: 0;
-            background: var(--beige);
-            padding: 1.75rem;
-            font-size: 0.9rem;
-            line-height: 1.6;
-            color: var(--black);
-            display: flex;
-            align-items: center;
-            opacity: 0;
-            transform: translateY(8px);
-            transition: opacity 0.28s ease, transform 0.28s ease;
-            z-index: 3;
-        }
-
-        .service-tile:hover .service-tile-desc {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .service-tile:hover .service-tile-name {
-            opacity: 0;
-        }
-
         /* About */
         .about {
             padding: 6rem 3rem;
@@ -464,29 +396,6 @@
                 font-size: 1rem;
             }
 
-            /* ── Services ── */
-            .services {
-                padding: 3.5rem 1.25rem;
-            }
-
-            .service-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .service-tile {
-                min-height: 110px;
-                padding: 1.5rem 1.25rem;
-            }
-
-            .service-tile-name {
-                font-size: 0.95rem;
-            }
-
-            .service-tile-desc {
-                font-size: 0.85rem;
-                padding: 1.25rem;
-            }
-
             /* ── About ── */
             .about {
                 padding: 3.5rem 1.25rem;
@@ -541,7 +450,7 @@
         <span class="logo">Brookham Construction</span>
         <ul class="nav-links">
             <li><a href="#projects">PROJECTS</a></li>
-            <li><a href="#services">SERVICES</a></li>
+            <li><a href="services.html">SERVICES</a></li>
             <li><a href="#about">ABOUT</a></li>
             <li><a href="#contact">CONTACT</a></li>
         </ul>
@@ -650,44 +559,6 @@
             <button class="carousel-btn carousel-btn--next" aria-label="Next">&#8250;</button>
         </div>
     </section>
-    <section class="services" id="services">
-        <h2>SERVICES</h2>
-        <div class="service-grid">
-            <div class="service-tile">
-                <div class="service-tile-name">Bathroom Remodeling</div>
-                <div class="service-tile-desc">Complete bathroom transformations from functional updates to luxury retreats.</div>
-            </div>
-            <div class="service-tile">
-                <div class="service-tile-name">Kitchen Remodeling</div>
-                <div class="service-tile-desc">Custom kitchen renovations that blend beauty with functionality.</div>
-            </div>
-            <div class="service-tile">
-                <div class="service-tile-name">Full Home Remodels</div>
-                <div class="service-tile-desc">Comprehensive renovations that transform your entire space.</div>
-            </div>
-            <div class="service-tile">
-                <div class="service-tile-name">Deck Construction</div>
-                <div class="service-tile-desc">Custom deck design and construction for outdoor living.</div>
-            </div>
-            <div class="service-tile">
-                <div class="service-tile-name">Flooring Installation</div>
-                <div class="service-tile-desc">Expert installation of hardwood, tile, and engineered flooring.</div>
-            </div>
-            <div class="service-tile">
-                <div class="service-tile-name">Tile &amp; Stonework</div>
-                <div class="service-tile-desc">Professional tile installation with precision and attention to detail.</div>
-            </div>
-            <div class="service-tile">
-                <div class="service-tile-name">Painting &amp; Finishing</div>
-                <div class="service-tile-desc">Interior and exterior painting with high-quality finishes.</div>
-            </div>
-            <div class="service-tile">
-                <div class="service-tile-name">Repairs &amp; Maintenance</div>
-                <div class="service-tile-desc">Quick and reliable repair services for all aspects of your home.</div>
-            </div>
-        </div>
-    </section>
-
     <section class="about" id="about">
         <div class="about-content">
             <h2>ABOUT</h2>
